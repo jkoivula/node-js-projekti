@@ -3,28 +3,45 @@
   <head>
     <meta charset="UTF-8">
     <title>nodejs projekti 3.1.2017</title>
-	
+
 	<!-- css joskus -->
-	
+
   </head>
   <body>
-  
+
 	<div style="text-align: center">
 		<h1>PELI!!!</h1>
 		<canvas id="myCanvas" width="600" height="500" style="border: 1px solid;"></canvas>
 	</div>
-  
+
 	<!-- peli scriptit canvasin alle -->
+  
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
 	<script>
 		var c = document.getElementById("myCanvas");
 		var ctx = c.getContext("2d");
-		
+
 		ctx.beginPath();
 		ctx.arc(95,50,40,0);
 		ctx.stroke();
-		
+
 	</script>
-	
-  
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      $('#m').val('');
+      return false;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+    });
+   </script>
+
   </body>
 </html>
