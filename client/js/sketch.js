@@ -10,7 +10,7 @@ function setup() {
     textStyle(NORMAL);
 
     socket.on('chat message', function(data) {
-        var kupla = new Puhekupla(data.message, data.color);
+        var kupla = new Puhekupla(data.message, data.id);
         console.log(kupla);
         puhekuplat.push(kupla);
     });
@@ -36,6 +36,7 @@ function Puhekupla(msg, color) {
 
     this.update = function() {
         this.y -= 1;
+        this.x += random(-5,5);
     }
 
 }
