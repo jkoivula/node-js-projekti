@@ -8,7 +8,7 @@ function setup() {
     rectMode(CENTER);
     textSize(18);
     textStyle(NORMAL);
-
+    colorMode(HSB, 100);
     socket.on('chat message', function(data) {
         var kupla = new Puhekupla(data.message, data.color);
         console.log(kupla);
@@ -26,7 +26,7 @@ function Puhekupla(msg, color) {
 
     this.show = function() {
         strokeWeight(0);
-        stroke(color);
+        stroke(color, 99, 99);
         fill(0);
         text(this.text, this.x, this.y);
         noFill();
