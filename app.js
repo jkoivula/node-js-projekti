@@ -14,6 +14,7 @@ server.listen(3000, function(){
 });
 
 io.sockets.on('connection', function(socket){
+
   console.log('uusi socketyhteys: '+socket.id);
 
   socket.on('chat message', function(data){
