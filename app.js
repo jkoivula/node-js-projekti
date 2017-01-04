@@ -23,7 +23,12 @@ io.sockets.on('connection', function(socket){
   console.log(kayttajat.get(socket.id));
 
   socket.on('chat message', function(data){
-      io.sockets.emit('chat message', data);
+    var x = {
+      message: data.message,
+      color: kayttajat.get(socket.id).color
+    }
+    console.log(x.message);
+    io.sockets.emit('chat message', x);
   });
 
     socket.on('disconnect', function(){
@@ -31,9 +36,17 @@ io.sockets.on('connection', function(socket){
   });
 });
 
+// socket.on('sendMsgToServer',function(data){
+//         var playerName = ("" + socket.id).slice(2,7);
+//         for(var i in SOCKET_LIST){
+//             SOCKET_LIST[i].emit('addToChat',playerName + ': ' + data);
+//         }
+//     });
+
+
 var UusiKayttaja = function(id) {
   var kayttaja = {
-    id:id
+    color:id
   }
   return kayttaja;
 }

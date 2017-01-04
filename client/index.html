@@ -35,10 +35,10 @@
     <script>
       var socket = io();
       $('form').submit(function(){
-        var msg = $('#m').val();
+        var message = $('#m').val();
         var color = socket.id;
         socket.emit('chat message', {
-          message: msg,
+          message: message,
           color: color
         });
         $('#m').val('');

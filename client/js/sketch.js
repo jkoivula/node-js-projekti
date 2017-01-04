@@ -8,9 +8,10 @@ function setup() {
     rectMode(CENTER);
     textSize(18);
     textStyle(NORMAL);
-    colorMode(HSB, 100);
+    colorMode(HSB, 100, 100, 100);
     socket.on('chat message', function(data) {
         var kupla = new Puhekupla(data.message, data.color);
+        console.log(data.message);
         console.log(kupla);
         puhekuplat.push(kupla);
     });
@@ -35,7 +36,7 @@ function Puhekupla(msg, color) {
     }
 
     this.update = function() {
-        this.y -= 1;
+        this.y -= 0.5;
     }
 
 }
