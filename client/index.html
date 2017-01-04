@@ -36,7 +36,11 @@
       var socket = io();
       $('form').submit(function(){
         var msg = $('#m').val()
-        socket.emit('chat message', {message: msg});
+        var id = socket.id;
+        socket.emit('chat message', {
+          message: msg,
+          id: id
+        });
         $('#m').val('');
         return false;
       });
