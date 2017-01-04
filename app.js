@@ -16,15 +16,11 @@ server.listen(3000, function(){
 var kayttajat = new Map();
 
 io.sockets.on('connection', function(socket){
-<<<<<<< HEAD
 
-  console.log('uusi socketyhteys: '+socket.id);
-=======
   socket.id = (Math.random() * 100) + 1;
   var kayttaja = new UusiKayttaja(socket.id);
   kayttajat.set(socket.id, kayttaja);
   console.log(kayttajat.get(socket.id));
->>>>>>> iideet lisätty käyttäjille
 
   socket.on('chat message', function(data){
       io.sockets.emit('chat message', data);
