@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var port = process.env.PORT || 3000;
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/client/index.html');
@@ -9,8 +10,8 @@ app.get('/', function(req, res){
 
 app.use('/client', express.static(__dirname + '/client'));
 
-server.listen(3000, function(){
-  console.log('listening on port 3000');
+server.listen(port, function(){
+  console.log('listening on port ' + port);
 });
 
 var kayttajat = new Map();
@@ -23,7 +24,12 @@ io.sockets.on('connection', function(socket){
   console.log(kayttajat.get(socket.id));
 
   socket.on('chat message', function(data){
-      io.sockets.emit('chat message', data);
+    var x = {
+      message: data.message,
+      color: kayttajat.get(socket.id).color
+    }
+    console.log(x.message);
+    io.sockets.emit('chat message', x);
   });
 
     socket.on('disconnect', function(){
@@ -31,9 +37,17 @@ io.sockets.on('connection', function(socket){
   });
 });
 
+// socket.on('sendMsgToServer',function(data){
+//         var playerName = ("" + socket.id).slice(2,7);
+//         for(var i in SOCKET_LIST){
+//             SOCKET_LIST[i].emit('addToChat',playerName + ': ' + data);
+//         }
+//     });
+
+
 var UusiKayttaja = function(id) {
   var kayttaja = {
-    id:id
+    color:id
   }
   return kayttaja;
 }
