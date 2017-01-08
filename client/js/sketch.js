@@ -10,14 +10,14 @@ function setup() {
     textStyle(NORMAL);
     colorMode(HSB, 100, 100, 100);
     socket.on('chat message', function(data) {
-        var kupla = new Puhekupla(data.message, data.color);
+        var kupla = new Puhekupla(data.message, data.color, data.username);
         console.log(kupla);
         puhekuplat.push(kupla);
     });
 }
 
-function Puhekupla(msg, color) {
-    this.text = msg;
+function Puhekupla(msg, color, username) {
+    this.text = username + ": "+msg;
     this.color = color;
     this.x;
     this.y = height - scl;
