@@ -80,7 +80,7 @@
     $("#messageForm").submit(function(){
       var message = $('#m').val();
       socket.emit('chat message', {
-        message: message,
+        message: message
       });
       $('#m').val('');
       return false;
@@ -91,6 +91,13 @@
       // piiloittaa username_field divin ja tuo esiin myCanvas_field divin
       $("#username_field").css("display", "none");
       $("#myCanvas_field").css("display", "block");
+
+      var username = $('#username').val();
+      socket.emit('new user', {
+        username: username
+      });
+      $('#username').val('');
+      return false;
     }
   </script>
 
