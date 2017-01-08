@@ -6,7 +6,7 @@
     <script src="client/js/libraries/p5.js"></script>
     <script src="client/js/libraries/p5.dom.js"></script>
     <script src="client/js/sketch.js"></script>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- css joskus -->
@@ -50,11 +50,16 @@
 
 	<div id="myCanvas_field" class="row" style="text-align: center">
 		<!-- <h1>PELI!!!</h1> -->
-    <div id="userlist" class="col-md-3">
+    <div id="userlist" class="col-md-3" ng-app="myApp" ng-controller="myCtrl">
+      <h4>Current Users</h4>
       <ul>
+        <li ng-repeat="user in userlist">
+          {{ user.name }}</li>
+        <!--
         <li>username</li>
         <li>username</li>
         <li>username</li>
+        -->
       </ul>
     </div>
 		<div id="myCanvas" class="col-md-9" style="text-align: left;"></div>
@@ -77,6 +82,10 @@
   <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
   <script>
     var socket = io();
+
+    // Angular.js app setup
+    var app = angular.module('myApp', []);
+
     $("#messageForm").submit(function(){
       var message = $('#m').val();
       socket.emit('chat message', {
@@ -99,6 +108,12 @@
       $('#username').val('');
       return false;
     }
+
+    socket.on('update userlist', function(data) {
+      app.controller('myCtrl', function($scope) {
+          $scope.userlist = data;
+      });
+    });
   </script>
 
   </body>

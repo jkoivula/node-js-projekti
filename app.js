@@ -23,6 +23,14 @@ io.sockets.on('connection', function(socket){
     var kayttaja = new UusiKayttaja(socket.id, data.username);
     kayttajat.set(socket.id, kayttaja);
     io.sockets.emit('new user', kayttaja);
+
+    //Päivitetään käyttäjälistat, luodaan hashmapista array,
+    //jossa on vain kayttaja-oliot
+    var kayttajat_oliot = Array();
+    for (var k in kayttajat) {
+      kayttaja_oliot.push(kayttajat[k]);
+    }
+    io.sockets.emit('update userlist', kayttajat_oliot);
   });
 
   socket.on('chat message', function(data){
