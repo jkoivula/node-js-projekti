@@ -6,14 +6,20 @@
     <script src="client/js/libraries/p5.js"></script>
     <script src="client/js/libraries/p5.dom.js"></script>
     <script src="client/js/sketch.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
     <!-- css joskus -->
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
+      /*body { font: 13px Helvetica, Arial; }
       form { background: #000; padding: 5px; width: 600px; margin:0 auto;}
       form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages {display:none}
+      */
+      /*#userlist {display: inline-block;}
+      #myCanvas {display: inline-block;} */
     </style>
 
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -28,30 +34,42 @@
   <body>
 
   <!-- username-kenttä ja scriptit -->
-  <div id="username_field">
-    <form>
-      <input id="username" autocomplete="off" /><button type="button" onclick="kayttajanimi()">Confirm</button>
+
+  <div id="username_field" class="col-md-offset-3 col-md-6" style="margin-top: 60px;">
+    <form action="">
+      <div class="input-group">
+        <input id="username" type="text" class="form-control">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="button" onclick="kayttajanimi()"><i class="glyphicon glyphicon-send"></i></button>
+        </div>
+      </div>
     </form>
   </div>
 
-  <script>
-    function kayttajanimi() {
-      // vie käyttäjänimen palvelimelle, voisi tarkistaakin, hyväksytäänkö tyhjä?
-      // piiloittaa username_field divin ja tuo esiin myCanvas_field divin
-      $("#username_field").css("display", "none");
-      $("#myCanvas_field").css("display", "block");
-    }
-  </script>
   <!-- -->
 
-	<div id="myCanvas_field" style="text-align: center">
-		<h1>PELI!!!</h1>
-		<div id="myCanvas" style="width:601px; height:500px; border: 1px solid; margin: 0 auto;"></div>
+	<div id="myCanvas_field" class="row" style="text-align: center">
+		<!-- <h1>PELI!!!</h1> -->
+    <div id="userlist" class="col-md-3">
+      <ul>
+        <li>username</li>
+        <li>username</li>
+        <li>username</li>
+      </ul>
+    </div>
+		<div id="myCanvas" class="col-md-9" style="text-align: left;"></div>
 
-    <ul id="messages"></ul>
-    <form id="messageForm" action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+    <div class="col-md-offset-3 col-md-9">
+      <form id="messageForm" action="" style="width: 600px;">
+        <div class="input-group">
+          <input id="m" type="text" class="form-control">
+          <div class="input-group-btn">
+            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-send"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+
   </div>
 
   <!-- viesti-scriptit -->
@@ -67,6 +85,13 @@
       $('#m').val('');
       return false;
     });
+
+    function kayttajanimi() {
+      // vie käyttäjänimen palvelimelle, voisi tarkistaakin, hyväksytäänkö tyhjä?
+      // piiloittaa username_field divin ja tuo esiin myCanvas_field divin
+      $("#username_field").css("display", "none");
+      $("#myCanvas_field").css("display", "block");
+    }
   </script>
 
   </body>
