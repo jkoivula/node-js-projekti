@@ -1,120 +1,125 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title>nodejs projekti 3.1.2017</title>
     <script src="client/js/libraries/p5.js"></script>
     <script src="client/js/libraries/p5.dom.js"></script>
     <script src="client/js/sketch.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- css joskus -->
     <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      /*body { font: 13px Helvetica, Arial; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /*body { font: 13px Helvetica, Arial; }
       form { background: #000; padding: 5px; width: 600px; margin:0 auto;}
       form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
       form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
       #messages {display:none}
       */
-      /*#userlist {display: inline-block;}
+        /*#userlist {display: inline-block;}
       #myCanvas {display: inline-block;} */
     </style>
 
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      $(function() {
-        // Kun sivu latautuu.
-        // Piilotetaan canvas.
-        $("#myCanvas_field").css("display", "none");
-      });
+        $(function() {
+            // Kun sivu latautuu.
+            // Piilotetaan canvas.
+            $("#myCanvas_field").css("display", "none");
+        });
     </script>
-  </head>
-  <body>
+</head>
 
-  <!-- username-kenttä ja scriptit -->
+<body>
 
-  <div id="username_field" class="col-md-offset-3 col-md-6" style="margin-top: 60px;">
-    <form action="">
-      <div class="input-group">
-        <input id="username" type="text" class="form-control">
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="button" onclick="kayttajanimi()"><i class="glyphicon glyphicon-send"></i></button>
-        </div>
-      </div>
-    </form>
-  </div>
+    <!-- username-kenttä ja scriptit -->
 
-  <!-- -->
+    <div id="username_field" class="col-md-offset-3 col-md-6" style="margin-top: 60px;">
+        <form action="">
+            <div class="input-group">
+                <input id="username" type="text" class="form-control" autofocus="true">
+                <div class="input-group-btn">
+                    <button id="send-username" class="btn btn-default" type="button" onclick="kayttajanimi()"><i class="glyphicon glyphicon-send"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
 
-	<div id="myCanvas_field" class="row" style="text-align: center">
-		<!-- <h1>PELI!!!</h1> -->
-    <div id="userlist" class="col-md-3" ng-app="myApp" ng-controller="myCtrl">
-      <h4>Current Users</h4>
-      <ul>
-        <li ng-repeat="user in userlist">
-          {{ user.name }}</li>
-        <!--
+    <!-- -->
+
+    <div id="myCanvas_field" class="row" style="text-align: center">
+        <!-- <h1>PELI!!!</h1> -->
+        <div id="userlist" class="col-md-3" ng-app="myApp" ng-controller="myCtrl">
+            <h4>Current Users</h4>
+            <ul id="current-users-list">
+
+                <!--
         <li>username</li>
         <li>username</li>
         <li>username</li>
         -->
-      </ul>
-    </div>
-		<div id="myCanvas" class="col-md-9" style="text-align: left;"></div>
-
-    <div class="col-md-offset-3 col-md-9">
-      <form id="messageForm" action="" style="width: 600px;">
-        <div class="input-group">
-          <input id="m" type="text" class="form-control">
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-send"></i></button>
-          </div>
+            </ul>
         </div>
-      </form>
+        <div id="myCanvas" class="col-md-9" style="text-align: left;"></div>
+
+        <div class="col-md-offset-3 col-md-9">
+            <form id="messageForm" action="" style="width: 600px;">
+                <div class="input-group">
+                    <input id="m" type="text" class="form-control" autofocus="true" required="true">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-send"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
     </div>
 
-  </div>
+    <!-- viesti-scriptit -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
+    <script>
+        var socket = io();
 
-  <!-- viesti-scriptit -->
-  <script src="/socket.io/socket.io.js"></script>
-  <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
-  <script>
-    var socket = io();
+        $("#messageForm").submit(function() {
+            var message = $('#m').val();
+            socket.emit('chat message', {
+                message: message
+            });
+            $('#m').val('');
+            return false;
+        });
 
-    // Angular.js app setup
-    var app = angular.module('myApp', []);
+        function kayttajanimi() {
+            // vie käyttäjänimen palvelimelle, voisi tarkistaakin, hyväksytäänkö tyhjä?
+            // piiloittaa username_field divin ja tuo esiin myCanvas_field divin
+            $("#username_field").css("display", "none");
+            $("#myCanvas_field").css("display", "block");
 
-    $("#messageForm").submit(function(){
-      var message = $('#m').val();
-      socket.emit('chat message', {
-        message: message
-      });
-      $('#m').val('');
-      return false;
-    });
+            var username = $('#username').val();
+            socket.emit('new user', {
+                username: username
+            });
+            console.log(username);
+            $('#username').val('');
+            return false;
+        }
 
-    function kayttajanimi() {
-      // vie käyttäjänimen palvelimelle, voisi tarkistaakin, hyväksytäänkö tyhjä?
-      // piiloittaa username_field divin ja tuo esiin myCanvas_field divin
-      $("#username_field").css("display", "none");
-      $("#myCanvas_field").css("display", "block");
+        socket.on('update userlist', function(data) {
+            var kayttajat = data;
+            console.log("index - " + kayttajat);
+            for (var k in kayttajat) {
+                $('#current-users-list').append($('<li>').text(kayttajat[k].username));
+            }
+        });
+    </script>
 
-      var username = $('#username').val();
-      socket.emit('new user', {
-        username: username
-      });
-      $('#username').val('');
-      return false;
-    }
+</body>
 
-    socket.on('update userlist', function(data) {
-      app.controller('myCtrl', function($scope) {
-          $scope.userlist = data;
-      });
-    });
-  </script>
-
-  </body>
 </html>

@@ -17,21 +17,22 @@ server.listen(port, function(){
 var kayttajat = new Map();
 
 io.sockets.on('connection', function(socket){
+  socket.id = (Math.random() * 100) + 1;
+  console.log("Uusi yhteys: "+socket.id);
 
   socket.on('new user', function(data) {
-    socket.id = (Math.random() * 100) + 1;
     var kayttaja = new UusiKayttaja(socket.id, data.username);
     kayttajat.set(socket.id, kayttaja);
-    io.sockets.emit('new user', kayttaja);
 
     //Päivitetään käyttäjälistat, luodaan hashmapista array,
     //jossa on vain kayttaja-oliot
     var kayttajat_oliot = Array();
-    for (var k in kayttajat) {
-      kayttaja_oliot.push(kayttajat[k]);
+    for (var k of kayttajat.values()) {
+      kayttajat_oliot.push(k);
     }
     io.sockets.emit('update userlist', kayttajat_oliot);
   });
+
 
   socket.on('chat message', function(data){
     var x = {
@@ -44,6 +45,7 @@ io.sockets.on('connection', function(socket){
 
     socket.on('disconnect', function(){
     console.log('socketyhteys katkaistu');
+    kayttajat.delete(socket.id);
   });
 });
 
