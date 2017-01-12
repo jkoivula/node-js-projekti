@@ -114,6 +114,7 @@
         socket.on('update userlist', function(data) {
             var kayttajat = data;
             console.log("index - " + kayttajat);
+            $('#current-users-list').html('');
             for (var k in kayttajat) {
                 $('#current-users-list').append($('<li>').text(kayttajat[k].username));
             }
