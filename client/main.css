@@ -1,0 +1,85 @@
+h1 {
+margin-bottom: 30px;
+}
+.my-textbox {
+width: 83%;
+padding: 2px 10px;
+border-top-left-radius: 15px;
+border-bottom-left-radius: 15px;
+border: 1px solid;
+vertical-align: middle;
+}
+.my-textbox:focus {
+outline-width: 0;
+}
+#m {
+border-radius: 0;
+}
+.my-input-group button {
+width: 7%;
+border-top-right-radius: 15px;
+border-bottom-right-radius: 15px;
+border: 1px solid;
+background-color: white;
+padding: 2px 10px;
+margin-left: -5px;
+vertical-align: middle;
+}
+.my-input-group button:focus {
+outline-width: 0;
+}
+
+.color-picker {
+width: 7%;
+height: 26px;
+border: 1px solid;
+background-color: white;
+padding: 0 4px 0 7px;
+border-top-left-radius: 15px;
+border-bottom-left-radius: 15px;
+margin-right: -5px;
+vertical-align: middle;
+}
+.color-picker:focus {
+outline-width: 0;
+}
+
+.my-input-group select {
+width: 5%;
+}
+.my-input-group select:focus {
+outline-width: 0;
+}
+option:active, option:hover {
+
+box-shadow: 0 0 10px 100px #000 inset;
+}
+.content-box {
+width: 60%;
+padding: 0;
+border: 1px solid;
+border-radius: 15px;
+margin: 20px auto;
+}
+.content-box h4 {
+padding: 9px 12px;
+border-bottom: 1px solid;
+margin: 0;
+}
+.content-box ul {
+background-color: tomato;
+text-decoration: none;
+margin-bottom: 0;
+padding-bottom: 5px;
+}
+.content-box ul:not(:last-child) {
+border-bottom: 1px solid;
+}
+.content-box ul:last-child {
+border-bottom-left-radius: 14px;
+border-bottom-right-radius: 14px;
+}
+.content-box li {
+list-style-type: none;
+padding: 7px 10px;
+}
