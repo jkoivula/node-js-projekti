@@ -47,8 +47,15 @@
 
 <body style="height:100%;">
 
-    <!-- username-kenttä ja scriptit -->
 
+
+    <!--p5 canvas taustakuvana -->
+    <div id="myCanvas" style="text-align: left;"></div>
+
+    <!-- <h1>PELI!!!</h1> -->
+    <div id="container">
+
+    <!-- username-kenttä ja scriptit -->  
     <div id="username_field" class="col-md-offset-3 col-md-6" style="top:170px;">
       <h1>Enter your username below.</h1>
         <form action="">
@@ -59,44 +66,35 @@
         </form>
     </div>
 
-    <!--p5 canvas taustakuvana -->
-    <div id="myCanvas" style="text-align: left;"></div>
 
-    <!-- <h1>PELI!!!</h1> -->
+    <div id="myCanvas_field" style="height: 100%;">
 
-    <div id="myCanvas_field" class="row" style="height: 100%;">
+      <div id="userlist" class="content-box">
+          <h4>Current Stats</h4>
+          <ul id="chat-stats">
+            <li>jotain</li>
+            <li>jotain</li>
+          </ul>
+          <h4>Current Users</h4>
+          <ul id="current-users-list"></ul>
+      </div>
 
-        <div id="userlist" class="col-md-3">
-          <div class="content-box">
-            <h4>Current Stats</h4>
-            <ul id="chat-stats">
-              <li>jotain</li>
-              <li>jotain</li>
-            </ul>
-            <h4>Current Users</h4>
-            <ul id="current-users-list"></ul>
-          </div>
-        </div>
-
-        <div class="col-md-6" style="top: 530px;">
-            <form id="messageForm" action="">
-                <div class="my-input-group" style="width:100%; margin: 0 auto;">
-                  <!-- Ärsyttävä hover väri pilaa tälläsen valikon
-                    <select name="color">
-                      <option value="red" style="background-color: red"></option>
-                      <option value="blue" style="background-color: blue"></option>
-                    </select>
-                  -->
-                    <input type="color" class="color-picker" name="picked-color" value="#ff6214">
-                    <input class="my-textbox" id="m" type="text" autofocus="true" required="true">
-                    <button type="submit"><i class="glyphicon glyphicon-send"></i></button>
-                </div>
-            </form>
-        </div>
-
-        <div class="col-md-3">
-          <!-- oikea palkki! -->
-        </div>
+      <div style="margin-top: 300px;">
+          <form id="messageForm" action="">
+              <div class="my-input-group" style="width:100%; margin: 0 auto;">
+                <!-- Ärsyttävä hover väri pilaa tälläsen valikon
+                  <select name="color">
+                    <option value="red" style="background-color: red"></option>
+                    <option value="blue" style="background-color: blue"></option>
+                  </select>
+                -->
+                  <input type="color" class="color-picker" name="picked-color" value="#ff6214">
+                  <input class="my-textbox" id="m" type="text" autofocus="true" required="true">
+                  <button type="submit"><i class="glyphicon glyphicon-send"></i></button>
+              </div>
+          </form>
+      </div>
+      </div>
 
     </div>
 
