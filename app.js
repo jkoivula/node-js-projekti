@@ -38,7 +38,8 @@ io.sockets.on('connection', function(socket){
     var x = {
       message: data.message,
       color: kayttajat.get(socket.id).color,
-      username: kayttajat.get(socket.id).username
+      username: kayttajat.get(socket.id).username,
+      msgcolor: data.msgcolor
     }
     io.sockets.emit('chat message', x);
   });

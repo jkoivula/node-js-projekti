@@ -55,7 +55,7 @@
     <!-- <h1>PELI!!!</h1> -->
     <div id="container">
 
-    <!-- username-kenttä ja scriptit -->  
+    <!-- username-kenttä ja scriptit -->
     <div id="username_field" class="col-md-offset-3 col-md-6" style="top:170px;">
       <h1>Enter your username below.</h1>
         <form action="">
@@ -88,7 +88,7 @@
                     <option value="blue" style="background-color: blue"></option>
                   </select>
                 -->
-                  <input type="color" class="color-picker" name="picked-color" value="#ff6214">
+                  <input type="color" class="color-picker" id="active-color" value="#ff6214">
                   <input class="my-textbox" id="m" type="text" autofocus="true" required="true">
                   <button type="submit"><i class="glyphicon glyphicon-send"></i></button>
               </div>
@@ -106,8 +106,11 @@
 
         $("#messageForm").submit(function() {
             var message = $('#m').val();
+            var msgcolor = $('#active-color').val();
+            console.log(msgcolor);
             socket.emit('chat message', {
-                message: message
+                message: message,
+                msgcolor: msgcolor
             });
             $('#m').val('');
             return false;

@@ -2,6 +2,9 @@ var socket;
 var puhekuplat = [];
 var scl = 30; // puhekuplien padding
 
+var colors = new Map(); //viesti väri ja määrät
+var messagesTotal; //viestin määrä yhteensä
+
 function setup() {
     var canvas = createCanvas(window.innerWidth, window.innerHeight);
     canvas.parent("myCanvas");
@@ -10,14 +13,14 @@ function setup() {
     colorMode(HSB, 100, 100, 100);
 
     socket.on('chat message', function(data) {
-        var kupla = new Puhekupla(data.message, data.color, data.username);
+        var kupla = new Puhekupla(data.message, data.color, data.username, data.msgcolor);
         console.log(kupla);
         puhekuplat.push(kupla);
     });
 
 }
 
-function Puhekupla(msg, color, username) {
+function Puhekupla(msg, color, username, msgcolor) {
     this.user = username + ":  ";
     this.text = msg;
     this.color = color;
@@ -28,6 +31,9 @@ function Puhekupla(msg, color, username) {
     this.angle = 0;
     var r = random(-250, 250);
     this.r = constrain(r, -250, 250-this.w);
+
+    // Lisätään viesti colors map:in ja lajitellaan colors Map
+    this.updateColors();
 
     this.show = function() {
         push();
@@ -59,6 +65,43 @@ function Puhekupla(msg, color, username) {
     this.update = function() {
         this.y -= 0.5;
         this.angle += 1.2;
+    }
+
+    // Tämän koko hässäkän vois laittaa omaan funktioon updateColors()
+    /*Viestin väri ja määrä mapin koodi
+    if (väri on jo olemassa) {
+      lisää värin viestin määrä 1 colors map:ssa
+    }
+    else {
+      colors.set(msgcolor, 1); // väriä ei ole käytetty, lisätään map:in
+    }
+
+    sortColors() // functio joka lajittelee mapin oikeaan järjestykseen
+                 // suurin arvo(viestien määrä) on ensimäinen ja pienin viimeinen
+    */
+
+    this.updateColors = function() {
+      var colorExists = false;
+      for (var c of colors.keys()) {
+        if (msgcolor == c)
+          colorExists = true;
+          break;
+      }
+
+      if (colorExists) colors.set(msgcolor, colors.get(msgcolor) + 1);
+      else colors.set(msgcolor, 1);
+
+      var tuples = [];
+      for (var k in colors.keys()) tuples.push(k, colors.get(k));
+
+      tuples.sort(function(a,b){
+        return a[1] - b[1];
+      });
+
+      colors = new Map(tuples);
+      colors.forEach(function(key, value){
+        console.log("color: " + key + "\nmessages: " + value);
+      });
     }
 }
 
