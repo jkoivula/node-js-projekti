@@ -44,9 +44,13 @@ io.sockets.on('connection', function(socket){
     io.sockets.emit('chat message', x);
   });
 
-    socket.on('disconnect', function(){
+  socket.on('disconnect', function(){
     console.log('socketyhteys katkaistu');
     kayttajat.delete(socket.id);
+  });
+
+  socket.on('update colorslist', function(data){
+    io.sockets.emit('update colorslist', data);
   });
 });
 

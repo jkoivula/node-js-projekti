@@ -118,9 +118,6 @@ function updateColors(msgcolor) {
   var tuples = [];
   for (var k of colors.keys()) tuples.push([k, colors.get(k)]);
 
-  console.log("colors-Map muutettu tuples(pari)-taulukoksi:")
-  console.log(tuples);
-
   tuples.sort(function(a,b){
     return b[1] - a[1];
   });
@@ -134,4 +131,7 @@ function updateColors(msgcolor) {
   */
   console.log("colors-Map uudessa järjestyksessä(laskeva):")
   console.log(colors);
+
+  // Lähetetään clientiin (index.html) päivittetty colors-map
+  socket.emit('update colorslist', {colors: tuples});
 }

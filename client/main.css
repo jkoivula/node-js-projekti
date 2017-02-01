@@ -71,7 +71,7 @@ border-bottom: 1px solid;
 margin: 0;
 }
 .content-box ul {
-background-color: tomato;
+background-color: lightgrey;
 text-decoration: none;
 margin-bottom: 0;
 padding-bottom: 5px;
@@ -86,4 +86,18 @@ border-bottom-right-radius: 14px;
 .content-box li {
 list-style-type: none;
 padding: 7px 10px;
+}
+#color-stats {
+display: inline-block;
+padding: 0;
+}
+#color-stats li {
+display: inline-block;
+text-align: center;
+font-weight: bold;
+width: 30px;
+height: 30px;
+padding: 4px;
+border-radius: 100%;
+margin: 4px 3px;
 }

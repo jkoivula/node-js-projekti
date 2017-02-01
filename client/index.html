@@ -70,10 +70,12 @@
     <div id="myCanvas_field" style="height: 100%;">
 
       <div id="userlist" class="content-box">
-          <h4>Current Stats</h4>
-          <ul id="chat-stats">
+          <h4>Color stats</h4>
+          <ul id="color-stats">
+            <!--
             <li>jotain</li>
             <li>jotain</li>
+            -->
           </ul>
           <h4>Current Users</h4>
           <ul id="current-users-list"></ul>
@@ -138,6 +140,22 @@
             for (var k in kayttajat) {
                 $('#current-users-list').append($('<li>').text(kayttajat[k].username));
             }
+        });
+
+        // Päivitetään colors-list
+        socket.on('update colorslist', function(data) {
+            var colors = data.colors;
+            console.log(colors);
+            $('#color-stats').html('');
+
+            for (i = 0; i < colors.length; i++) {
+              $('#color-stats').append($('<li style="background-color: ' + colors[i][0] + ';">').text(colors[i][1]));
+            }
+            /*
+            colors.forEach(function(value, key){
+              $('#color-stats').append($('<li>').text(value));
+            });
+            */
         });
     </script>
 
