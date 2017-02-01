@@ -33,7 +33,7 @@ function Puhekupla(msg, color, username, msgcolor) {
     this.r = constrain(r, -250, 250-this.w);
 
     // Lisätään viesti colors map:in ja lajitellaan colors Map
-    this.updateColors();
+    updateColors(msgcolor);
 
     this.show = function() {
         push();
@@ -46,7 +46,7 @@ function Puhekupla(msg, color, username, msgcolor) {
         // piirretään puhekupla
         noFill();
         strokeWeight(3);
-        stroke(this.color, 30, 100);
+        stroke(msgcolor); // testailin valittua väriä kuplan reunan värinä
         rect(this.x, this.y, this.w, scl, scl);
 
         // näytetään käyttäjänimi
@@ -66,43 +66,6 @@ function Puhekupla(msg, color, username, msgcolor) {
         this.y -= 0.5;
         this.angle += 1.2;
     }
-
-    // Tämän koko hässäkän vois laittaa omaan funktioon updateColors()
-    /*Viestin väri ja määrä mapin koodi
-    if (väri on jo olemassa) {
-      lisää värin viestin määrä 1 colors map:ssa
-    }
-    else {
-      colors.set(msgcolor, 1); // väriä ei ole käytetty, lisätään map:in
-    }
-
-    sortColors() // functio joka lajittelee mapin oikeaan järjestykseen
-                 // suurin arvo(viestien määrä) on ensimäinen ja pienin viimeinen
-    */
-
-    this.updateColors = function() {
-      var colorExists = false;
-      for (var c of colors.keys()) {
-        if (msgcolor == c)
-          colorExists = true;
-          break;
-      }
-
-      if (colorExists) colors.set(msgcolor, colors.get(msgcolor) + 1);
-      else colors.set(msgcolor, 1);
-
-      var tuples = [];
-      for (var k in colors.keys()) tuples.push(k, colors.get(k));
-
-      tuples.sort(function(a,b){
-        return a[1] - b[1];
-      });
-
-      colors = new Map(tuples);
-      colors.forEach(function(key, value){
-        console.log("color: " + key + "\nmessages: " + value);
-      });
-    }
 }
 
 function draw() {
@@ -116,4 +79,59 @@ function draw() {
 // aseta canvasin koko uudelleen jos selainikkunan kokoa muutetaan
 function windowResized() {
     resizeCanvas(window.innerWidth, window.innerHeight);
+}
+
+// Apufunktiot ja muut funktiot
+
+// Tämän koko hässäkän vois laittaa omaan funktioon updateColors()
+/*Viestin väri ja määrä mapin koodi
+if (väri on jo olemassa) {
+  lisää värin viestin määrä 1 colors map:ssa
+}
+else {
+  colors.set(msgcolor, 1); // väriä ei ole käytetty, lisätään map:in
+}
+
+sortColors() // functio joka lajittelee mapin oikeaan järjestykseen
+             // suurin arvo(viestien määrä) on ensimäinen ja pienin viimeinen
+*/
+function updateColors(msgcolor) {
+  var colorExists = false;
+  console.log("colors-Map keys:\n")
+  for (var c of colors.keys()) {
+    console.log(c)
+    if (msgcolor == c) {
+      colorExists = true;
+      break;
+    }
+  }
+
+  console.log("colors-Map alkutilanne:")
+  console.log(colors);
+
+  if (colorExists) colors.set(msgcolor, colors.get(msgcolor) + 1);
+  else colors.set(msgcolor, 1);
+
+  console.log("colors-Map viestimäärä kasvatettu/lisätty:")
+  console.log(colors);
+
+  var tuples = [];
+  for (var k of colors.keys()) tuples.push([k, colors.get(k)]);
+
+  console.log("colors-Map muutettu tuples(pari)-taulukoksi:")
+  console.log(tuples);
+
+  tuples.sort(function(a,b){
+    return b[1] - a[1];
+  });
+
+  colors.clear();
+  colors = new Map(tuples);
+  /*
+  colors.forEach(function(value, key){
+    console.log("color: " + key + "\tmessages: " + value);
+  });
+  */
+  console.log("colors-Map uudessa järjestyksessä(laskeva):")
+  console.log(colors);
 }
