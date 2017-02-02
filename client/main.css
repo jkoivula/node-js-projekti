@@ -156,6 +156,10 @@ border-radius: 100%;
 margin: 4px 3px;
 }
 
+.message-field {
+margin-top: 535px;
+}
+
 @media screen and (max-width: 700px) {
   .content-box {
     position: relative;
@@ -163,4 +167,7 @@ margin: 4px 3px;
     left:auto;
     min-width: 60%;
   }
+  .message-field {
+  margin-top: 450px;
+}
 }

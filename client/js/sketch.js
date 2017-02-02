@@ -1,7 +1,7 @@
 var socket;
 var puhekuplat = [];
 var scl = 30; // puhekuplien padding
-
+var chatWidth, chatHeight;
 var messagesTotal; //viestin määrä yhteensä --ei vielä käytetä
 
 var backgroundcolor = '#ff6214'; //oranssi, joku default vain
@@ -13,8 +13,8 @@ function setup() {
     textSize(14);
     colorMode(HSB, 100, 100, 100);
 
-    if (window.innerWidth < 600) {
-      chatWidth = window.innerWidth;
+    if (window.innerWidth < 1000) {
+      chatWidth = 600;
     } else {
       chatWidth = 1000;
     }
@@ -37,6 +37,7 @@ function Puhekupla(msg, color, username, msgcolor) {
     this.uw = textWidth(this.user);
     this.w = textWidth(this.text) + this.uw + scl;
     this.angle = 0;
+
     var r = random(-chatWidth/2, chatWidth/2);
     this.r = constrain(r, -chatWidth/2, chatWidth/2-this.w);
 
@@ -45,7 +46,12 @@ function Puhekupla(msg, color, username, msgcolor) {
 
     this.show = function() {
         push();
-        translate(width / 2, 500);
+        if (window.innerWidth < 1000) {
+          chatHeight = 420;
+        } else {
+          chatHeight = 500;
+        }
+        translate(width / 2, chatHeight);
 
         // arvotaan x-koordinaatti johon kupla ilmestyy ja lisätään aaltoliike
         var ang = radians(this.angle);
@@ -88,12 +94,13 @@ function draw() {
 // aseta canvasin koko uudelleen jos selainikkunan kokoa muutetaan
 function windowResized() {
     var w = window.innerWidth;
-    var h = window.innerHeight
-    resizeCanvas(w, h);
+    var h = window.innerHeight;
 
     if (w < 1000) {
       chatWidth = w;
     } else {
       chatWidth = 1000;
     }
+
+    resizeCanvas(w, h);
 }
