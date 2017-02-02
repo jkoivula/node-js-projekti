@@ -47,7 +47,7 @@ function Puhekupla(msg, color, username, msgcolor) {
     this.show = function() {
         push();
         if (window.innerWidth < 1000) {
-          chatHeight = 420;
+          chatHeight = 340;
         } else {
           chatHeight = 500;
         }
