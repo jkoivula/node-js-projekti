@@ -93,6 +93,10 @@ background-color: white;
 border-bottom: 1px solid;
 min-height: 3em;
 }
+.content-box-bg:last-child {
+border-bottom-left-radius: 14px;
+border-bottom-right-radius: 14px;
+}
 .content-box {
 display: block;
 min-width: 25%;
@@ -168,7 +172,38 @@ margin-top: 535px;
     left:auto;
     min-width: 60%;
   }
+  .content-box ul {
+    padding-bottom: 0;
+}
+  .content-box li {
+    padding: 4px 10px;
+}
   .message-field {
-  margin-top: 450px;
+    margin-top: 450px;
+}
+  .content-box h3 {
+    padding: 2px 12px;
+}
+  #color-stats {
+    padding: 3px;
+}
+  #color-stats li {
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    padding: 3px;
+    margin: 4px 3px;
+}
+  .content-box-bg {
+    min-height: 2rem;
+}
+  h3 {
+    font-size: 16px;
+  }
+  #current-users-list {
+    display: inline;
+}
+  #current-users-list li {
+    display: inline-block;
 }
 }
