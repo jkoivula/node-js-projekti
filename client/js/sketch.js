@@ -51,6 +51,7 @@ function Puhekupla(msg, color, username, msgcolor) {
         } else {
           chatHeight = 500;
         }
+        
         translate(width / 2, chatHeight);
 
         // arvotaan x-koordinaatti johon kupla ilmestyy ja lisätään aaltoliike
