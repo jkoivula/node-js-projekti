@@ -47,7 +47,7 @@
 
     <div id="myCanvas_field" style="height: 100%;">
 
-      <div style="margin-top: 520px;">
+      <div class="message-field">
           <form id="messageForm" action="">
               <div class="my-input-group">
                 <!-- Ärsyttävä hover väri pilaa tälläsen valikon
@@ -57,7 +57,7 @@
                   </select>
                 -->
                   <input type="color" class="color-picker" id="active-color" value="#ff6214">
-                  <input class="my-textbox" id="m" type="text" autofocus="true" required="true">
+                  <input class="my-textbox" id="m" type="text" autofocus="true" required="true" maxlength="200">
                   <button type="submit">SEND</button>
               </div>
           </form>
@@ -143,6 +143,10 @@
           ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
           ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
         }
+
+        $('#m').on("invalid", function(e) {
+          e.preventDefault();
+        });
     </script>
 
 </body>
