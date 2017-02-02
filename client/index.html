@@ -125,9 +125,25 @@
             $('#color-stats').html('');
 
             for (i = 0; i < colors.length; i++) {
-              $('#color-stats').append($('<li style="background-color: ' + colors[i][0] + ';">').text(colors[i][1]));
+              $('#color-stats').append($('<li style="background-color: ' + colors[i][0] + ';" onclick="pickColor(this)">').text(colors[i][1]));
             }
         });
+        // ei toimi vielä, asettaa default-vörin(musta)
+        function pickColor(element) {
+          //console.log(rgb2hex(element.style.backgroundColor));
+          var hexcolor = rgb2hex(element.style.backgroundColor);
+          $('#active-color').val(hexcolor);
+        }
+
+        // rgb väri muutetaan hex väriksi. tarvitaan color-picker valuen
+        // muuttamiseen
+        function rgb2hex(rgb){
+         rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+         return (rgb && rgb.length === 4) ? "#" +
+          ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
+          ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
+          ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
+        }
     </script>
 
 </body>

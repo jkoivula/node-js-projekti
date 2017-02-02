@@ -31,6 +31,7 @@ border-top-left-radius: 15px;
 border-bottom-left-radius: 15px;
 border: 1px solid;
 vertical-align: middle;
+box-shadow: 5px 5px black;
 }
 .my-textbox:focus {
 outline-width: 0;
@@ -38,12 +39,14 @@ outline-width: 0;
 #m {
 border-radius: 0;
 }
+/*
 .my-input-group {
 border-radius: 15px;
 box-shadow: 5px 5px black;
 }
+*/
 .my-input-group button {
-width: 8.328%;
+width: 8;
 border-top-right-radius: 15px;
 border-bottom-right-radius: 15px;
 border: 1px solid;
@@ -51,6 +54,7 @@ background-color: white;
 padding: 4px 5px;
 margin-left: -5px;
 vertical-align: middle;
+box-shadow: 5px 5px black;
 }
 .my-input-group button:focus {
 outline-width: 0;
@@ -66,6 +70,7 @@ border-top-left-radius: 15px;
 border-bottom-left-radius: 15px;
 margin-right: -6px;
 vertical-align: middle;
+box-shadow: 5px 5px black;
 }
 .color-picker:focus {
 outline-width: 0;

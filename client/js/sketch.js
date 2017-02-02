@@ -2,7 +2,6 @@ var socket;
 var puhekuplat = [];
 var scl = 30; // puhekuplien padding
 
-var colors = new Map(); //viesti väri ja määrät
 var messagesTotal; //viestin määrä yhteensä --ei vielä käytetä
 
 var backgroundcolor = '#ff6214'; //oranssi, joku default vain
@@ -16,6 +15,7 @@ function setup() {
 
     socket.on('chat message', function(data) {
         var kupla = new Puhekupla(data.message, data.color, data.username, data.msgcolor);
+        backgroundcolor = data.backgroundcolor;
         console.log(kupla);
         puhekuplat.push(kupla);
     });
@@ -35,7 +35,7 @@ function Puhekupla(msg, color, username, msgcolor) {
     this.r = constrain(r, -250, 250-this.w);
 
     // Lisätään viesti colors-map:in ja lajitellaan colors-map
-    updateColors(msgcolor);
+    // updateColors(msgcolor);
 
     this.show = function() {
         push();
@@ -82,48 +82,4 @@ function draw() {
 // aseta canvasin koko uudelleen jos selainikkunan kokoa muutetaan
 function windowResized() {
     resizeCanvas(window.innerWidth, window.innerHeight);
-}
-
-function updateColors(msgcolor) {
-  var colorExists = false;
-
-  for (var c of colors.keys()) {
-    if (msgcolor == c) {
-      colorExists = true;
-      break;
-    }
-  }
-
-  console.log("colors-Map alkutilanne:")
-  console.log(colors);
-
-  if (colorExists) colors.set(msgcolor, colors.get(msgcolor) + 1);
-  else colors.set(msgcolor, 1);
-
-  console.log("colors-Map viestimäärä kasvatettu/lisätty:")
-  console.log(colors);
-
-  var tuples = [];
-  for (var k of colors.keys()) tuples.push([k, colors.get(k)]);
-
-  // tuples-array sisältö lajitellaan arvon mukaan laskevassa järjestyksessä
-  tuples.sort(function(a,b){
-    return b[1] - a[1];
-  });
-
-  colors.clear();
-  colors = new Map(tuples);
-
-  console.log("colors-Map uudessa järjestyksessä(laskeva):")
-  console.log(colors);
-
-  // Vaihdetaanko taustaväri?
-  // colors.keys().next().value --colors.avaimet.seuraavan(elin ekan).arvo = eniten viestejä oleva väri
-  if (backgroundcolor != colors.keys().next().value)
-    backgroundcolor = colors.keys().next().value;
-
-  // Lähetetään clientiin (index.html) päivittetty colors-map
-  // colors: tuples --viestin mukana lähetetään tuples-array, koska
-  // colors-map ei toiminut clientin puolella. jostain syystä
-  socket.emit('update colorslist', {colors: tuples});
 }
