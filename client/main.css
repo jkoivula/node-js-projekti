@@ -90,10 +90,11 @@ box-shadow: 0 0 10px 100px #000 inset;
 .content-box-bg {
 background-color: white;
 border-bottom: 1px solid;
+min-height: 3em;
 }
 .content-box {
 display: block;
-width: 25%;
+min-width: 25%;
 padding: 0;
 border: 1px solid;
 border-radius: 15px;
@@ -153,4 +154,13 @@ height: 30px;
 padding: 5px;
 border-radius: 100%;
 margin: 4px 3px;
+}
+
+@media screen and (max-width: 700px) {
+  .content-box {
+    position: relative;
+    z-index: 0;
+    left:auto;
+    min-width: 60%;
+  }
 }
