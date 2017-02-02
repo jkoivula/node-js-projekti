@@ -13,6 +13,12 @@ function setup() {
     textSize(14);
     colorMode(HSB, 100, 100, 100);
 
+    if (window.innerWidth < 600) {
+      chatWidth = window.innerWidth;
+    } else {
+      chatWidth = 1000;
+    }
+
     socket.on('chat message', function(data) {
         var kupla = new Puhekupla(data.message, data.color, data.username, data.msgcolor);
         backgroundcolor = data.backgroundcolor;
@@ -31,8 +37,8 @@ function Puhekupla(msg, color, username, msgcolor) {
     this.uw = textWidth(this.user);
     this.w = textWidth(this.text) + this.uw + scl;
     this.angle = 0;
-    var r = random(-250, 250);
-    this.r = constrain(r, -250, 250-this.w);
+    var r = random(-chatWidth/2, chatWidth/2);
+    this.r = constrain(r, -chatWidth/2, chatWidth/2-this.w);
 
     // Lisätään viesti colors-map:in ja lajitellaan colors-map
     // updateColors(msgcolor);
@@ -81,5 +87,13 @@ function draw() {
 
 // aseta canvasin koko uudelleen jos selainikkunan kokoa muutetaan
 function windowResized() {
-    resizeCanvas(window.innerWidth, window.innerHeight);
+    var w = window.innerWidth;
+    var h = window.innerHeight
+    resizeCanvas(w, h);
+
+    if (w < 1000) {
+      chatWidth = w;
+    } else {
+      chatWidth = 1000;
+    }
 }
