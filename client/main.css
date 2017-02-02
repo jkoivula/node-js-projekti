@@ -4,6 +4,7 @@ padding: 0;
 box-sizing: border-box;
 font-family: 'Montserrat', serif;
 }
+
 #myCanvas {
   overflow:hidden;
 position: absolute;
@@ -179,7 +180,7 @@ margin-top: 535px;
     padding: 4px 10px;
 }
   .message-field {
-    margin-top: 380px;
+    margin-top: 330px;
 }
   .content-box h3 {
     padding: 2px 12px;

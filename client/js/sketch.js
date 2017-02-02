@@ -47,11 +47,11 @@ function Puhekupla(msg, color, username, msgcolor) {
     this.show = function() {
         push();
         if (window.innerWidth < 1000) {
-          chatHeight = 340;
+          chatHeight = 300;
         } else {
           chatHeight = 500;
         }
-        
+
         translate(width / 2, chatHeight);
 
         // arvotaan x-koordinaatti johon kupla ilmestyy ja lisätään aaltoliike
