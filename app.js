@@ -17,7 +17,7 @@ server.listen(port, function(){
 var kayttajat = new Map();
 
 io.sockets.on('connection', function(socket){
-  socket.id = (Math.random() * 100) + 1;
+  socket.id = Math.random() * 1000000;
   console.log("Uusi yhteys: "+socket.id);
 
   socket.on('new user', function(data) {
@@ -65,6 +65,10 @@ io.sockets.on('connection', function(socket){
 });
 
 var UusiKayttaja = function(id, username) {
+  if(!username) {
+    var h = id.toString().slice(0,5);
+    username = "anon"+h;
+  }
   var kayttaja = {
     color:id,
     username: username

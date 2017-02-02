@@ -5,6 +5,7 @@ box-sizing: border-box;
 font-family: 'Montserrat', serif;
 }
 #myCanvas {
+  overflow:hidden;
 position: absolute;
 top: 0;
 left: 0;
