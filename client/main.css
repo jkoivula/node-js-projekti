@@ -25,7 +25,7 @@ font-size: 20px;
 margin: 30px 10%;
 }
 .my-textbox {
-width: 85%;
+width: calc(100% - 110px);
 padding: 4px 10px;
 border-top-left-radius: 15px;
 border-bottom-left-radius: 15px;
@@ -39,14 +39,15 @@ outline-width: 0;
 #m {
 border-radius: 0;
 }
-/*
-.my-input-group {
-border-radius: 15px;
-box-shadow: 5px 5px black;
+#username {
+width: calc(100% - 60px);
 }
-*/
+.my-input-group {
+width:100%;
+margin: 0 auto;
+}
 .my-input-group button {
-width: 8;
+width: 60px;
 border-top-right-radius: 15px;
 border-bottom-right-radius: 15px;
 border: 1px solid;
@@ -61,7 +62,7 @@ outline-width: 0;
 }
 
 .color-picker {
-width: 7%;
+width: 50px;
 height: 26px;
 border: 1px solid;
 background-color: white;
