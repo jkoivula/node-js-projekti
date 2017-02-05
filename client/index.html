@@ -137,7 +137,7 @@
         function pickColor(element) {
           //console.log(rgb2hex(element.style.backgroundColor));
           var hexcolor = rgb2hex(element.style.backgroundColor);
-          $('#active-color').val(hexcolor);
+          $('#active-color').css("background-color", hexcolor);
         }
 
         // rgb väri muutetaan hex väriksi. tarvitaan color-picker valuen
