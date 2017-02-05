@@ -34,10 +34,7 @@ io.sockets.on('connection', function(socket){
 
     //Päivitetään käyttäjälistat, luodaan hashmapista array,
     //jossa on vain kayttaja-oliot
-    var kayttajat_oliot = Array();
-    for (var k of kayttajat.values()) {
-      kayttajat_oliot.push(k);
-    }
+    var kayttajat_oliot = mapValuesToArray(kayttajat);
     io.sockets.emit('update userlist', kayttajat_oliot);
 
     // viedään colors-lista VAIN juuri liittyneelle käyttäjälle
@@ -82,6 +79,10 @@ io.sockets.on('connection', function(socket){
   socket.on('disconnect', function(){
     console.log('socketyhteys katkaistu');
     kayttajat.delete(socket.id);
+
+    var kayttajat_oliot = mapValuesToArray(kayttajat);
+    io.sockets.emit('update userlist', kayttajat_oliot);
+
   });
 
 });
@@ -140,6 +141,14 @@ function mapToTuplesOrdered(map) {
   });
 
   return tuples;
+}
+
+function mapValuesToArray(map) {
+  var array = [];
+  for (var k of map.values()) {
+    array.push(k);
+  }
+  return array;
 }
 
 function updateBackgroundColor() {
