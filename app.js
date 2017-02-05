@@ -17,6 +17,19 @@ server.listen(port, function(){
 var kayttajat = new Map();
 
 io.sockets.on('connection', function(socket){
+
+  // Alkuperäinen socketin luoma id yhteydelle,
+  // viestin välittäminen tietylle henkilölle toimii vain tällä
+  var original_id = socket.id;
+
+  // päivitä taustaväri samantien, ei toimi vielä
+  /*
+  if (io.sockets.connected[original_id]) {
+    io.sockets.connected[original_id].emit('update clientbg', {backgroundcolor: backgroundcolor});
+  }
+  */
+
+
   socket.id = Math.random() * 1000000;
   console.log("Uusi yhteys: "+socket.id);
 
@@ -32,8 +45,17 @@ io.sockets.on('connection', function(socket){
     }
     io.sockets.emit('update userlist', kayttajat_oliot);
 
-    //ei toimi koska vie kaikille, pitäisi viedä vain liittyneelle käyttäjälle
-    //io.sockets.emit('update colorslist', mapToTuplesOrdered(colors));
+    // viedään colors-lista VAIN juuri liittyneelle käyttäjälle
+    if (colors.size > 0) {
+      if (io.sockets.connected[original_id]) {
+        io.sockets.connected[original_id].emit('liittyneelle', {
+          viesti: 'for your eyes only',
+          nimi: kayttajat.get(socket.id).username
+        });
+        io.sockets.connected[original_id].emit('update colorslist', {colors: mapToTuplesOrdered(colors)});
+      }
+    }
+
   });
 
   socket.on('chat message', function(data){
