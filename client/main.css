@@ -113,8 +113,8 @@ position: absolute;
 box-shadow: 5px 5px black;
 }
 
-.content-box h3 {
-padding: 9px 12px;
+h3 {
+padding: 6px 12px;
 border-bottom: 1px solid;
 margin: 0;
 color: white;
@@ -165,13 +165,51 @@ margin: 4px 3px;
 margin-top: 535px;
 }
 
+#helper {
+display: block;
+min-width: 30px;
+max-width: 25%;
+padding: 0;
+border: 1px solid;
+border-radius: 15px;
+margin: 20px 0 20px;
+
+position: absolute;
+    left: 10%;
+    top: 0px;
+    z-index: -1;
+
+box-shadow: 5px 5px black;
+
+background: -moz-linear-gradient(top,  rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.59) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.59) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(0,0,0,0.04) 0%,rgba(0,0,0,0.59) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6b000000', endColorstr='#c2000000',GradientType=0 ); /* IE6-9 */
+
+}
+#helper h3 {
+font-size: 30px;
+text-align: center;
+border: none;
+border-radius: 14px;
+background: none;
+}
+
+#helper:hover {
+background: linear-gradient(to bottom,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.3) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#helper_text {
+padding: 0 13px 10px;
+}
+
 @media screen and (max-width: 700px) {
   .content-box {
     position: relative;
     z-index: 0;
     left:auto;
     min-width: 60%;
-  }
+}
   .content-box ul {
     padding-bottom: 0;
 }
@@ -208,4 +246,6 @@ margin-top: 535px;
   #current-users-list li {
     display: inline-block;
 }
+#helper {
+max-width: 80%;
 }

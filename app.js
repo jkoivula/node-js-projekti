@@ -58,7 +58,6 @@ io.sockets.on('connection', function(socket){
 
     var x = {
       message: data.message,
-      color: kayttajat.get(socket.id).color,
       username: kayttajat.get(socket.id).username,
       msgcolor: data.msgcolor,
       backgroundcolor: backgroundcolor

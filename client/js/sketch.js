@@ -41,10 +41,10 @@ function setup() {
 
 }
 
-function Puhekupla(msg, color, username, msgcolor) {
+function Puhekupla(msg, username, msgcolor) {
     this.user = username + ":  ";
     this.text = msg;
-    this.color = color;
+    this.color = msgcolor;
     this.x;
     this.y = 0;
     this.uw = textWidth(this.user);
@@ -73,7 +73,7 @@ function Puhekupla(msg, color, username, msgcolor) {
         // piirretään puhekupla
         //noFill();
         strokeWeight(3);
-        stroke(msgcolor); // testailin valittua väriä kuplan reunan värinä
+        stroke(msgcolor);
         fill(255);
         rect(this.x, this.y, this.w, scl, scl);
 
