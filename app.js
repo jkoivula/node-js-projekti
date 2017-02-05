@@ -21,17 +21,12 @@ io.sockets.on('connection', function(socket){
   // Alkuperäinen socketin luoma id yhteydelle,
   // viestin välittäminen tietylle henkilölle toimii vain tällä
   var original_id = socket.id;
-
-  // päivitä taustaväri samantien, ei toimi vielä
-  /*
+  // päivitetään taustaväri
   if (io.sockets.connected[original_id]) {
     io.sockets.connected[original_id].emit('update clientbg', {backgroundcolor: backgroundcolor});
   }
-  */
 
-
-  socket.id = Math.random() * 1000000;
-  console.log("Uusi yhteys: "+socket.id);
+  console.log("Uusi yhteys: " + socket.id);
 
   socket.on('new user', function(data) {
     var kayttaja = new UusiKayttaja(socket.id, data.username);
@@ -93,8 +88,8 @@ io.sockets.on('connection', function(socket){
 
 var UusiKayttaja = function(id, username) {
   if(!username) {
-    var h = id.toString().slice(0,5);
-    username = "anon"+h;
+    var h = Math.random() * 1000000;
+    username = "anon" + h.toString().slice(0,5);;
   }
   var kayttaja = {
     color:id,
@@ -115,16 +110,16 @@ function updateColors(msgcolor) {
       break;
     }
   }
-
+  /*
   console.log("colors-Map alkutilanne:")
   console.log(colors);
-
+  */
   if (colorExists) colors.set(msgcolor, colors.get(msgcolor) + 1);
   else colors.set(msgcolor, 1);
-
+  /*
   console.log("colors-Map viestimäärä kasvatettu/lisätty:")
   console.log(colors);
-
+  */
   var tuples = mapToTuplesOrdered(colors);
 
   colors.clear();
