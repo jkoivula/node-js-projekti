@@ -13,10 +13,6 @@
 
     <link href="https://fonts.googleapis.com/css?family=Fugaz+One|Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="client/main.css">
-    <!-- css joskus -->
-    <style>
-
-    </style>
 
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
@@ -33,10 +29,8 @@
     <!--p5 canvas taustakuvana -->
     <div id="myCanvas" style="text-align: left;"></div>
 
-    <!-- <h1>PELI!!!</h1> -->
     <div id="container">
 
-    <!-- username-kenttä ja scriptit -->
     <div id="username_field" class="col-md-offset-3 col-md-6" style="margin-top: 20%;">
       <h1>Enter your username below</h1>
       <h4>- or just click confirm, you will be given a default name</h4>
@@ -53,7 +47,7 @@
       <div class="message-field">
           <form id="messageForm" action="">
               <div class="my-input-group">
-                  <button class="color-picker jscolor {valueElement:null,value:'ff6214'}" id="active-color" style="border: 1px solid black;"></button>
+                  <button class="color-picker jscolor {valueElement:null,value:'ffc214'}" id="active-color" style="border: 1px solid black;"></button>
                   <input class="my-textbox" id="m" type="text" autofocus="true" required="true" maxlength="200" autocomplete="off">
                   <button type="submit" id="submit">SEND</button>
               </div>
@@ -76,9 +70,8 @@
 
     </div>
 
-    <!-- viesti-scriptit -->
+
     <script src="/socket.io/socket.io.js"></script>
-    <!-- <script src="https://code.jquery.com/jquery-1.11.1.js"></script> -->
     <script>
         var socket = io();
 
@@ -102,14 +95,12 @@
             socket.emit('new user', {
                 username: username
             });
-            console.log(username);
             $('#username').val('');
             return false;
         });
 
         socket.on('update userlist', function(data) {
             var kayttajat = data;
-            console.log("index - " + kayttajat);
             $('#current-users-list').html('');
             for (var k in kayttajat) {
                 $('#current-users-list').append($('<li>').text(kayttajat[k].username));
@@ -119,7 +110,6 @@
         // Päivitetään colors-list
         socket.on('update colorslist', function(data) {
             var colors = data.colors;
-            console.log(colors);
             $('#color-stats').html('');
 
             for (i = 0; i < colors.length; i++) {
@@ -128,14 +118,10 @@
         });
 
         socket.on('update clientbg', function(data){
-            console.log("update clientbg, data: " + data.backgroundcolor);
             document.body.style.backgroundColor = data.backgroundcolor;
-            //$(document.body).css("background-color: " + data.backgroundcolor + ";");
         });
 
-        // ei toimi vielä, asettaa default-vörin(musta)
         function pickColor(element) {
-          //console.log(rgb2hex(element.style.backgroundColor));
           var hexcolor = rgb2hex(element.style.backgroundColor);
           $('#active-color').css("background-color", hexcolor);
         }

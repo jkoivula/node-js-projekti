@@ -35,6 +35,10 @@ function setup() {
         puhekuplat.push(kupla);
     });
 
+    socket.on('update clientbg', function(data){
+        backgroundcolor = data.backgroundcolor;
+    });
+
 }
 
 function Puhekupla(msg, color, username, msgcolor) {

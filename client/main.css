@@ -4,8 +4,10 @@ padding: 0;
 box-sizing: border-box;
 font-family: 'Montserrat', serif;
 }
+
 body {
 background-color: #ff6214;
+min-height: 100%;
 }
 #myCanvas {
   overflow:hidden;
@@ -29,7 +31,7 @@ h4 {
 margin-bottom: 35px;
 }
 #container {
-margin: 30px 10%;
+margin: 0 10%;
 }
 .my-textbox {
 width: calc(100% - 117px);
@@ -179,6 +181,7 @@ margin-top: 535px;
   .message-field {
     margin-top: 450px;
     -webkit-appearance: none;
+    margin-top: 420px;
 }
   .content-box h3 {
     padding: 2px 12px;
