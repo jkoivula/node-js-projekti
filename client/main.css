@@ -178,6 +178,7 @@ margin-top: 535px;
 }
   .message-field {
     margin-top: 450px;
+    -webkit-appearance: none;
 }
   .content-box h3 {
     padding: 2px 12px;
