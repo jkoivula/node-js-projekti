@@ -31,7 +31,8 @@ h4 {
 margin-bottom: 35px;
 }
 #container {
-margin: 0 10%;
+margin: 0 auto;
+max-width: 800px;
 }
 .my-textbox {
 width: calc(100% - 117px);
@@ -47,6 +48,10 @@ outline-width: 0;
 }
 #m {
 border-radius: 0;
+}
+#username_field {
+margin: 0 auto;
+max-width: 500px;
 }
 #username {
 width: calc(100% - 90px);
@@ -100,6 +105,7 @@ border-bottom-right-radius: 14px;
 .content-box {
 display: block;
 min-width: 25%;
+max-width: 300px;
 padding: 0;
 border: 1px solid;
 border-radius: 15px;
@@ -168,7 +174,7 @@ margin-top: 535px;
 #helper {
 display: block;
 min-width: 30px;
-max-width: 25%;
+max-width: 250px;
 padding: 0;
 border: 1px solid;
 border-radius: 15px;
@@ -246,6 +252,8 @@ padding: 0 13px 10px;
   #current-users-list li {
     display: inline-block;
 }
-#helper {
+  #helper {
 max-width: 80%;
 }
+#container {
+margin: 0 10%;

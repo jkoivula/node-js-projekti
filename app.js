@@ -65,6 +65,7 @@ io.sockets.on('connection', function(socket){
         backgroundcolor: backgroundcolor
       }
     } catch(err) {
+      kayttajat.delete(socket.id);
       var kayttaja = new UusiKayttaja(socket.id);
       kayttajat.set(socket.id, kayttaja);
 
