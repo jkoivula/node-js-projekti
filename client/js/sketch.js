@@ -20,6 +20,12 @@ function setup() {
     canvas.parent("myCanvas");
     textAlign(LEFT, CENTER);
     textSize(14);
+    // Asetetaan fontti jos sen lataus onnistu
+    if (fontReady) {
+      textFont(myFont);
+    } else {
+      textFont(Arial);
+    }
 
     if (window.innerWidth < 1000) {
       chatWidth = 600;
@@ -31,10 +37,6 @@ function setup() {
         var kupla = new Puhekupla(data.message, data.username, data.msgcolor);
         backgroundcolor = data.backgroundcolor;
         puhekuplat.push(kupla);
-    });
-
-    socket.on('update clientbg', function(data){
-        backgroundcolor = data.backgroundcolor;
     });
 
 }
@@ -74,12 +76,6 @@ function Puhekupla(msg, username, msgcolor) {
         fill(255);
         rect(this.x, this.y, this.w, scl, scl);
 
-        // Asetetaan fontti jos sen lataus onnistui
-        if (fontReady) {
-          textFont(myFont);
-        } else {
-          textFont(Arial);
-        }
           // näytetään käyttäjänimi
         textStyle(BOLD);
         strokeWeight(0);
@@ -105,7 +101,8 @@ function Puhekupla(msg, username, msgcolor) {
 }
 
 function draw() {
-    background(backgroundcolor);
+  clear();
+    //background(backgroundcolor);
     for (var i = 0; i < puhekuplat.length; i++) {
         puhekuplat[i].show();
         puhekuplat[i].update();
