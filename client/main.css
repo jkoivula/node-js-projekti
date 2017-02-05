@@ -261,7 +261,6 @@ position: absolute;
 }
   .message-field {
     margin-top: 450px;
-    -webkit-appearance: none;
     margin-top: 420px;
 }
   .content-box h3 {
