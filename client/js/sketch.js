@@ -5,6 +5,15 @@ var chatWidth, chatHeight;
 var messagesTotal; //viestin määrä yhteensä --ei vielä käytetä
 
 var backgroundcolor = '#ff6214'; //oranssi, joku default vain
+var myFont, fontReady = false; //Montserrat fontti
+
+function fontRead(){
+    fontReady = true;
+}
+
+function preload() {
+    myFont = loadFont("../client/fonts/Montserrat-Regular.ttf", fontRead);
+}
 
 function setup() {
     var canvas = createCanvas(window.innerWidth, window.innerHeight);
@@ -69,6 +78,11 @@ function Puhekupla(msg, color, username, msgcolor) {
         rect(this.x, this.y, this.w, scl, scl);
 
         // näytetään käyttäjänimi
+        if (fontReady) {
+          textFont(myFont);
+        } else {
+          textFont(Arial);
+        }
         textStyle(BOLD);
         strokeWeight(0);
         fill(this.color, 80, 80);

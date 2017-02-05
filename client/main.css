@@ -179,6 +179,8 @@ margin-top: 535px;
     padding: 4px 10px;
 }
   .message-field {
+    margin-top: 450px;
+    -webkit-appearance: none;
     margin-top: 420px;
 }
   .content-box h3 {
