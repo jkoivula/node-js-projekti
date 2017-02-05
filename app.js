@@ -56,11 +56,24 @@ io.sockets.on('connection', function(socket){
 
     var isNewBackgroundColor = updateBackgroundColor();
 
-    var x = {
-      message: data.message,
-      username: kayttajat.get(socket.id).username,
-      msgcolor: data.msgcolor,
-      backgroundcolor: backgroundcolor
+    var x;
+    try {
+      x = {
+        message: data.message,
+        username: kayttajat.get(socket.id).username,
+        msgcolor: data.msgcolor,
+        backgroundcolor: backgroundcolor
+      }
+    } catch(err) {
+      var kayttaja = new UusiKayttaja(socket.id);
+      kayttajat.set(socket.id, kayttaja);
+
+      x = {
+        message: data.message,
+        username: kayttajat.get(socket.id).username,
+        msgcolor: data.msgcolor,
+        backgroundcolor: backgroundcolor
+      }
     }
 
     io.sockets.emit('chat message', x);
