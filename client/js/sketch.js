@@ -7,13 +7,13 @@ var messagesTotal; //viestin määrä yhteensä --ei vielä käytetä
 var backgroundcolor = '#ff6214'; //oranssi, joku default vain
 
 function setup() {
-    var canvas = createCanvas(windowWidth, window.innerHeight);
+    var canvas = createCanvas(window.innerWidth, window.innerHeight);
     canvas.parent("myCanvas");
     textAlign(LEFT, CENTER);
     textSize(14);
     colorMode(HSB, 100, 100, 100);
 
-    if (windowWidth < 1000) {
+    if (window.innerWidth < 1000) {
       chatWidth = 600;
     } else {
       chatWidth = 1000;
@@ -46,7 +46,7 @@ function Puhekupla(msg, color, username, msgcolor) {
 
     this.show = function() {
         push();
-        if (windowWidth < 1000) {
+        if (window.innerWidth < 1000) {
           chatHeight = 420;
         } else {
           chatHeight = 500;
@@ -93,7 +93,7 @@ function draw() {
 
 // aseta canvasin koko uudelleen jos selainikkunan kokoa muutetaan
 function windowResized() {
-    var w = windowWidth;
+    var w = window.innerWidth;
     var h = window.innerHeight;
 
     if (w < 1000) {
