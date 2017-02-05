@@ -20,7 +20,6 @@ function setup() {
     canvas.parent("myCanvas");
     textAlign(LEFT, CENTER);
     textSize(14);
-    colorMode(HSB, 100, 100, 100);
 
     if (window.innerWidth < 1000) {
       chatWidth = 600;
@@ -29,9 +28,8 @@ function setup() {
     }
 
     socket.on('chat message', function(data) {
-        var kupla = new Puhekupla(data.message, data.color, data.username, data.msgcolor);
+        var kupla = new Puhekupla(data.message, data.username, data.msgcolor);
         backgroundcolor = data.backgroundcolor;
-        console.log(kupla);
         puhekuplat.push(kupla);
     });
 
@@ -54,8 +52,6 @@ function Puhekupla(msg, username, msgcolor) {
     var r = random(-chatWidth/2, chatWidth/2);
     this.r = constrain(r, -chatWidth/2, chatWidth/2-this.w);
 
-    // Lisätään viesti colors-map:in ja lajitellaan colors-map
-    // updateColors(msgcolor);
 
     this.show = function() {
         push();
@@ -73,19 +69,26 @@ function Puhekupla(msg, username, msgcolor) {
         // piirretään puhekupla
         //noFill();
         strokeWeight(3);
-        stroke(msgcolor);
+        stroke(this.color); // testailin valittua väriä kuplan reunan värinä
+
         fill(255);
         rect(this.x, this.y, this.w, scl, scl);
 
-        // näytetään käyttäjänimi
+        // Asetetaan fontti jos sen lataus onnistui
         if (fontReady) {
           textFont(myFont);
         } else {
           textFont(Arial);
         }
+          // näytetään käyttäjänimi
         textStyle(BOLD);
         strokeWeight(0);
-        fill(this.color, 80, 80);
+        var color = splitTokens(this.color, ',() ');
+        var red = int(color[1]) - 80;
+        var green = int(color[2]) - 80;
+        var blue = int(color[3]) - 80;
+
+        fill(red, green, blue);
         text(this.user, this.x + scl / 2, this.y, width - this.x, scl);
 
         // näytetään käyttäjän viesti
