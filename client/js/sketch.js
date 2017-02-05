@@ -71,6 +71,7 @@ function Puhekupla(msg, username, msgcolor) {
         //noFill();
         strokeWeight(3);
         stroke(this.color); // testailin valittua väriä kuplan reunan värinä
+
         fill(255);
         rect(this.x, this.y, this.w, scl, scl);
 
