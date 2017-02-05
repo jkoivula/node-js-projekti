@@ -45,7 +45,7 @@
     <div id="myCanvas_field" style="height: 100%;">
 
       <div id="helper">
-        <h3>?</h3>
+        <h3 id="helper_title">?</h3>
         <p id="helper_text" style="display: none;">helppari tekstii,helppari tekstiihelppari tekstii
         helppari tekstii ... ...helppari tekstiihelppari tekstii
         helppari tekstiihelppari tekstii</p>
@@ -157,8 +157,10 @@
 
         $('#helper').click(function(){
           if ($('#helper_text').css("display") == "none") {
+            $('#helper_title').text("X");
             $('#helper_text').css("display", "block");
           } else {
+            $('#helper_title').text("?");
             $('#helper_text').css("display", "none");
           }
         });
