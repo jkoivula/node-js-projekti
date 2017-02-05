@@ -17,8 +17,16 @@ server.listen(port, function(){
 var kayttajat = new Map();
 
 io.sockets.on('connection', function(socket){
-  socket.id = Math.random() * 1000000;
-  console.log("Uusi yhteys: "+socket.id);
+
+  // Alkuperäinen socketin luoma id yhteydelle,
+  // viestin välittäminen tietylle henkilölle toimii vain tällä
+  var original_id = socket.id;
+  // päivitetään taustaväri
+  if (io.sockets.connected[original_id]) {
+    io.sockets.connected[original_id].emit('update clientbg', {backgroundcolor: backgroundcolor});
+  }
+
+  console.log("Uusi yhteys: " + socket.id);
 
   socket.on('new user', function(data) {
     var kayttaja = new UusiKayttaja(socket.id, data.username);
@@ -32,13 +40,24 @@ io.sockets.on('connection', function(socket){
     }
     io.sockets.emit('update userlist', kayttajat_oliot);
 
-    //ei toimi koska vie kaikille, pitäisi viedä vain liittyneelle käyttäjälle
-    //io.sockets.emit('update colorslist', mapToTuplesOrdered(colors));
+    // viedään colors-lista VAIN juuri liittyneelle käyttäjälle
+    if (colors.size > 0) {
+      if (io.sockets.connected[original_id]) {
+        io.sockets.connected[original_id].emit('liittyneelle', {
+          viesti: 'for your eyes only',
+          nimi: kayttajat.get(socket.id).username
+        });
+        io.sockets.connected[original_id].emit('update colorslist', {colors: mapToTuplesOrdered(colors)});
+      }
+    }
+
   });
 
   socket.on('chat message', function(data){
 
     updateColors(data.msgcolor);
+
+    var isNewBackgroundColor = updateBackgroundColor();
 
     var x = {
       message: data.message,
@@ -55,6 +74,9 @@ io.sockets.on('connection', function(socket){
     // colors-map ei toiminut clientin puolella. jostain syystä
     io.sockets.emit('update colorslist', {colors: mapToTuplesOrdered(colors)});
 
+    // lähetetään viesti clientille jos taustaväri on muuttunut
+    if (isNewBackgroundColor)
+      io.sockets.emit('update clientbg', {backgroundcolor: backgroundcolor});
   });
 
   socket.on('disconnect', function(){
@@ -66,8 +88,8 @@ io.sockets.on('connection', function(socket){
 
 var UusiKayttaja = function(id, username) {
   if(!username) {
-    var h = id.toString().slice(0,5);
-    username = "anon"+h;
+    var h = Math.random() * 1000000;
+    username = "anon" + h.toString().slice(0,5);;
   }
   var kayttaja = {
     color:id,
@@ -88,16 +110,16 @@ function updateColors(msgcolor) {
       break;
     }
   }
-
+  /*
   console.log("colors-Map alkutilanne:")
   console.log(colors);
-
+  */
   if (colorExists) colors.set(msgcolor, colors.get(msgcolor) + 1);
   else colors.set(msgcolor, 1);
-
+  /*
   console.log("colors-Map viestimäärä kasvatettu/lisätty:")
   console.log(colors);
-
+  */
   var tuples = mapToTuplesOrdered(colors);
 
   colors.clear();
@@ -105,11 +127,6 @@ function updateColors(msgcolor) {
 
   console.log("colors-Map uudessa järjestyksessä(laskeva):")
   console.log(colors);
-
-  // Vaihdetaanko taustaväri?
-  // colors.keys().next().value --colors.avaimet.seuraavan(elin ekan).arvo = eniten viestejä oleva väri
-  if (backgroundcolor != colors.keys().next().value)
-    backgroundcolor = colors.keys().next().value;
 
 }
 
@@ -123,4 +140,14 @@ function mapToTuplesOrdered(map) {
   });
 
   return tuples;
+}
+
+function updateBackgroundColor() {
+  // Vaihdetaanko taustaväri?
+  // colors.keys().next().value --colors.avaimet.seuraavan(elin ekan).arvo = eniten viestejä oleva väri
+  if (backgroundcolor != colors.keys().next().value) {
+    backgroundcolor = colors.keys().next().value;
+    return true;
+  } else
+    return false;
 }
